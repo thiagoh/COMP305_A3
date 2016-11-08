@@ -3,7 +3,7 @@ using System.Collections;
 
 public class DoorControllerScript : MonoBehaviour {
 	
-	private AudioClip doorOpenSound, doorCloseSound;
+	[SerializeField]private AudioClip doorOpenSound, doorCloseSound;
 	private Animator doorAnimator;
 	private bool doorOpen = false;
 
@@ -26,15 +26,17 @@ public class DoorControllerScript : MonoBehaviour {
 		} else {
 			OpenDoor ();
 			doorOpen = true;
-			Debug.Log ("activate");
+//			Debug.Log ("activate");
 		}
 	}
 
 	void OpenDoor() {
 		doorAnimator.SetTrigger ("Open");
+		AudioSource.PlayClipAtPoint (doorOpenSound, this.transform.position);
 	}
 
 	void CloseDoor() {
 		doorAnimator.SetTrigger ("Close");
+		AudioSource.PlayClipAtPoint (doorCloseSound, this.transform.position);
 	}
 }
