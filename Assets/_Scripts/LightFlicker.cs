@@ -27,17 +27,15 @@ public class LightFlicker : MonoBehaviour {
 		}
 	}
 
+	// Make the light flicker periodically
 	IEnumerator Flicker () {
-		Debug.Log ("flicker");
 		if (flickTrigger) {
 			for (int i = 0; i < numFlickers; i++) {
-				Debug.Log ("for loop");
 				light.intensity = initialIntensity * Random.Range(0.1f, 0.5f);
 				yield return new WaitForSeconds(dimTime * Random.Range(0.1f, 2f));
 				light.intensity = initialIntensity;
 				yield return new WaitForSeconds(brightTime* Random.Range(0.1f, 2f));
 			}
-//			flickTrigger = false;
 			StopCoroutine ("Flicker");
 		}
 	}

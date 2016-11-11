@@ -10,7 +10,7 @@ public class DoorControllerScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		doorAnimator = GetComponentInParent<Animator> ();
+		doorAnimator = GetComponentInChildren<Animator> ();
 	}
 	
 	// Update is called once per frame
