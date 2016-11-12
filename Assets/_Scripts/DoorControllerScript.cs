@@ -5,12 +5,13 @@ public class DoorControllerScript : MonoBehaviour {
 	
 	[SerializeField] private AudioClip doorOpenSound, doorCloseSound, doorLockedSound;
 	[SerializeField] private bool locked = false;
+	[SerializeField] public string keyName = "key";
 	private Animator doorAnimator;
 	private bool doorOpen = false;
 
 	// Use this for initialization
 	void Start () {
-		doorAnimator = GetComponentInChildren<Animator> ();
+		doorAnimator = GetComponentInParent<Animator> ();
 	}
 	
 	// Update is called once per frame
@@ -30,6 +31,7 @@ public class DoorControllerScript : MonoBehaviour {
 				doorOpen = true;
 			} else {
 				AudioSource.PlayClipAtPoint (doorLockedSound, this.transform.position);
+				UnlockDoor ();
 			}
 		}
 	}
@@ -44,7 +46,13 @@ public class DoorControllerScript : MonoBehaviour {
 		AudioSource.PlayClipAtPoint (doorCloseSound, this.transform.position);
 	}
 
-	public void UnlockDoor() {
-		locked = false;
+	void UnlockDoor() {
+		if (GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerControllerScript> ().CheckInventoryForItem (keyName)) {
+			locked = false;
+			GameObject.FindGameObjectWithTag ("GUIController").GetComponent<GUIControllerScript> ().SetMessage ("Door opened with " + keyName);
+			Activate ();
+		} else {
+			GameObject.FindGameObjectWithTag ("GUIController").GetComponent<GUIControllerScript> ().SetMessage ("Door is locked");
+		}
 	}
 }

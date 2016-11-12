@@ -35,19 +35,25 @@ public class PlayerControllerScript : MonoBehaviour {
 				
 				if (targetObject.CompareTag ("Door")) {
 					guiController.SendMessage ("SetTooltip", "Click to use door", SendMessageOptions.DontRequireReceiver);
+					guiController.RotateCursor ();
 				} else if (targetObject.CompareTag ("Item")) {
 					guiController.SendMessage ("SetTooltip", "Click to pick up item", SendMessageOptions.DontRequireReceiver);
+					guiController.RotateCursor ();
 				} else {
 					guiController.SendMessage ("SetTooltip", "", SendMessageOptions.DontRequireReceiver);
+					guiController.StopCursor ();
 				}
 
 				if (Input.GetButtonDown ("Fire1")) {
 					Debug.Log (targetObject.tag);
 					targetObject.SendMessage ("Activate", null, SendMessageOptions.DontRequireReceiver);
 					Instantiate (particle_hit, activate.point, Quaternion.identity);
-					guiController.RotateCursor();
-					guiController.SendMessage ("SetMessage", "LMB clicked", SendMessageOptions.DontRequireReceiver);
+//					guiController.RotateCursor();
+//					guiController.SendMessage ("SetMessage", "LMB clicked", SendMessageOptions.DontRequireReceiver);
 				}
+			} else {
+				guiController.SendMessage ("SetTooltip", "", SendMessageOptions.DontRequireReceiver);
+				guiController.StopCursor();
 			}
 		}
 

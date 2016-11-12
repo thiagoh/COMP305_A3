@@ -5,7 +5,6 @@ public class PickupItemScript : MonoBehaviour {
 
 	[SerializeField] private string itemName = "item";
 	[SerializeField] AudioClip itemPickupSound;
-	private PlayerControllerScript playerController;
 
 	// Use this for initialization
 	void Start () {
@@ -19,8 +18,8 @@ public class PickupItemScript : MonoBehaviour {
 
 	// method called when player clicks on a GameObject within range
 	void Activate () {
-		playerController = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerControllerScript> ();
-		playerController.AddInventoryItem (itemName);
+		GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerControllerScript> ().AddInventoryItem (itemName);
+		GameObject.FindGameObjectWithTag ("GUIController").GetComponent<GUIControllerScript> ().SetMessage ("Picked up " + itemName);
 		AudioSource.PlayClipAtPoint (itemPickupSound, this.transform.position);
 		Destroy (this.gameObject);
 	}

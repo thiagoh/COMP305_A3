@@ -31,6 +31,10 @@ public class GUIControllerScript : MonoBehaviour {
 		animator.SetTrigger ("RotateCursor");
 	}
 
+	public void StopCursor () {
+		animator.SetTrigger ("StopCursor");
+	}
+
 	public void SetTooltip (string text) {
 		cursorTooltip.text = text;
 	}
